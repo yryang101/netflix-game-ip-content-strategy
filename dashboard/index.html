@@ -1,0 +1,174 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Smilegate의 Lost Ark Netflix 애니메이션 확장을 위한 장기 흥행 분석">
+  <title>Lost Ark Netflix Animation Strategy</title>
+  <link rel="stylesheet" href="css/style.css">
+  <script src="js/dashboard.js" defer></script>
+</head>
+<body class="main-analysis">
+  <header class="site-header">
+    <nav class="nav-wrap" aria-label="주요 메뉴">
+      <a class="brand-mark" href="#overview"><span class="brand-symbol">N</span><span>Long Hit Lab<small>Lost Ark 콘텐츠 전략 분석</small></span></a>
+      <button class="menu-toggle" type="button" aria-label="메뉴 열기" aria-expanded="false">메뉴</button>
+      <div class="nav-links">
+        <a class="active" aria-current="location" data-section="overview" href="#overview">Overview</a>
+        <a data-section="eda" href="#eda">EDA</a>
+        <a data-section="modeling" href="#modeling">Modeling</a>
+        <a href="pages/insight.html">Business Insight</a>
+        <a href="pages/archive.html">Archive</a>
+        <a href="report/full_report.html">Full Report</a>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero analysis-section" id="overview">
+      <div class="container hero-grid">
+        <div>
+          <p class="eyebrow">Smilegate 콘텐츠 사업 의사결정 지원</p>
+          <h1>Lost Ark IP의<br><span class="accent">Netflix 애니메이션 확장</span> 검토</h1>
+          <p class="lead">Netflix Top 10과 TMDB 데이터를 활용해 장기 흥행과 관련된 초기 성과를 확인하고, 콘텐츠 기획·출시·글로벌 운영에 필요한 판단 기준을 제안합니다.</p>
+          <div class="hero-actions"><a class="btn btn-primary" href="pages/insight.html">전략 제안 바로 보기</a><a class="btn" href="#eda">분석 결과부터 보기</a></div>
+        </div>
+        <aside class="business-brief" aria-label="검토 개요">
+          <img src="../images/netflix_logo.jpg" alt="Netflix 로고">
+          <dl>
+            <div><dt>검토 주체</dt><dd>Smilegate · Lost Ark IP 사업</dd></div>
+            <div><dt>의사결정</dt><dd>Netflix 오리지널 애니메이션 확장 전략</dd></div>
+            <div><dt>분석 기준</dt><dd>TV 시즌·파트 단위 content_key</dd></div>
+          </dl>
+        </aside>
+      </div>
+    </section>
+
+    <section class="section-tight">
+      <div class="container scenario">
+        <div class="scenario-label">검토 질문</div>
+        <blockquote>Lost Ark를 Netflix 오리지널 애니메이션으로 제작·출시할 경우, 장기 흥행 가능성을 높이기 위해 어떤 콘텐츠와 출시 전략이 필요한가?</blockquote>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="section-intro"><span class="kicker">분석 배경</span><div class="rule"></div><h2>왜 이 질문을 데이터로 확인하는가</h2><p>Netflix는 게임 원작 IP를 애니메이션·실사 시리즈로 확장하는 사례를 꾸준히 늘려왔습니다. 다만 공개 직후 화제성과 별개로, 실제로 몇 주 동안 시청자의 선택을 받는지는 콘텐츠마다 크게 갈립니다. Smilegate가 Lost Ark IP를 Netflix 오리지널 애니메이션으로 확장한다고 가정하면, 제작을 확정하기 전에 어떤 유형의 콘텐츠와 출시 방식이 초반 화제성을 넘어 장기간 순위에 머무는 결과로 이어지는지를 먼저 점검할 필요가 있습니다.</p></div>
+        <div class="grid-2">
+          <article class="card"><h3>확인하려는 것</h3><p>Top 10에 5주 이상 머문 콘텐츠와 그렇지 못한 콘텐츠가 출시 초기에 어떤 차이를 보였는지 확인합니다.</p><ul class="muted"><li>장르·언어·제작국가 같은 콘텐츠 특성과의 관계도 함께 봅니다</li></ul></article>
+          <article class="card"><h3>데이터의 범위와 한계</h3><p>Netflix 주간 순위·시청시간·국가별 진입 데이터와 TMDB 메타데이터를 사용합니다.</p><ul class="muted"><li>예산·마케팅비·완주율처럼 공개되지 않는 지표는 포함되어 있지 않습니다</li></ul></article>
+        </div>
+        <div class="metric-strip subsection">
+          <div class="metric"><strong>159</strong><span>TV 시즌·파트 단위 관측치</span></div>
+          <div class="metric"><strong>44</strong><span>long_hit 분석 단위</span></div>
+          <div class="metric"><strong>27.7%</strong><span>전체 long_hit 비율</span></div>
+          <div class="metric"><strong>2026 H1</strong><span>신규 진입 코호트 별도 검증</span></div>
+        </div>
+        <div class="flow subsection">
+          <div class="flow-item"><b>1. 기준 정의</b><span>Top 10 5주 이상 유지 여부</span></div>
+          <div class="flow-item"><b>2. 초기 성과</b><span>순위·시청시간·진입 국가</span></div>
+          <div class="flow-item"><b>3. 특성 결합</b><span>장르·언어·제작국가</span></div>
+          <div class="flow-item"><b>4. 모델 검증</b><span>그룹 분할 기반 분류 성능</span></div>
+          <div class="flow-item"><b>5. 사업 적용</b><span>Smilegate 실행 과제 도출</span></div>
+        </div>
+        <div class="takeaway subsection"><strong>이 분석이 지원하려는 의사결정</strong><p>Lost Ark를 Netflix 오리지널 애니메이션으로 제작할 경우 어떤 콘텐츠 방향과 출시 초기 운영에 자원을 우선 배분해야 하는지에 대한 근거를 제공하는 것이 목표입니다. 제작 여부 자체를 자동으로 확정하는 도구가 아니라, 제작을 검토하는 단계와 출시 이후 운영 단계에서 참고할 수 있는 데이터 기반 판단 기준입니다.</p></div>
+      </div>
+    </section>
+
+    <section class="section section-alt analysis-section" id="eda">
+      <div class="container">
+        <div class="section-intro"><span class="kicker">탐색적 데이터 분석</span><div class="rule"></div><h2>장기 흥행 그룹은 출시 초기부터 차이가 있었다</h2><p>데이터를 정의하는 단계부터 시작해, 언어 구분 → 초기 성과 지표 → TMDB 콘텐츠 특성 → 2026년 최신 검증 순서로 어떤 결과가 나왔는지, 그 결과를 어떻게 해석해야 하는지, 그리고 이 프로젝트의 의사결정에 왜 중요한지를 함께 정리했습니다.</p></div>
+
+        <div class="subsection">
+          <h3 class="subsection-title">1. 데이터와 long_hit 정의</h3>
+          <p>분석 단위는 TV 시즌·파트 기준 content_key 159개입니다. 시리즈 전체가 아니라 시즌·파트 단위로 끊은 이유는, 같은 작품이라도 시즌마다 흥행 결과가 달라질 수 있어 시즌 단위로 봐야 출시 시점의 성과를 정확히 비교할 수 있기 때문입니다. <b>long_hit</b>은 이 중 Netflix Global Top 10에 5주 이상 머문 경우로 정의했으며, 159개 중 44개(27.7%)가 이 기준을 충족했습니다.</p>
+          <div class="insight-line"><b>왜 중요한가</b> · 5주라는 기준은 반짝 화제성과 구분되는 최소한의 지속 시청을 걸러내기 위한 것입니다. Smilegate 입장에서는 공개 첫 주의 순위보다, 이 기준을 넘기는 콘텐츠가 실제로 어떤 특징을 가졌는지가 더 의미 있는 참고 자료가 됩니다.</div>
+        </div>
+
+        <div class="subsection">
+          <h3 class="subsection-title">2. 언어 구분: English vs Non-English</h3>
+          <p>TV 시즌·파트를 원어 기준으로 나눠 long_hit 비율을 비교했습니다.</p>
+          <div class="table-wrap"><table><thead><tr><th>구분</th><th>표본 수</th><th>long_hit</th><th>비율</th></tr></thead><tbody><tr><td>English</td><td>91</td><td>24</td><td class="score">26.37%</td></tr><tr><td>Non-English</td><td>68</td><td>20</td><td class="score">29.41%</td></tr></tbody></table></div>
+          <p>두 그룹의 비율 차이는 약 3%p로 크지 않았습니다. Non-English 쪽이 오히려 근소하게 높게 나타났습니다.</p>
+          <div class="insight-line"><b>왜 중요한가</b> · Lost Ark는 한국 게임 IP이므로 Netflix 오리지널로 제작되더라도 비영어권 콘텐츠로 분류될 가능성이 있습니다. 이 결과는 영어권 콘텐츠가 아니라는 점이 장기 흥행의 결정적인 장벽으로 보이지는 않는다는 것을 보여줍니다. 다만 다른 변수를 통제한 비교는 아니므로 상관관계 수준으로만 해석합니다.</div>
+        </div>
+
+        <div class="subsection">
+          <h3 class="subsection-title">3. 초기 성과 지표: 순위 · 시청시간 · 진입 국가</h3>
+          <p>long_hit 여부와 무관하게 모든 콘텐츠는 공개 직후 첫 진입 순위, 첫 주 시청시간, 초기 진입 국가 수를 남깁니다. 이 세 지표를 long_hit 그룹과 non-long_hit 그룹으로 나눠 비교했습니다.</p>
+          <div class="evidence-grid">
+            <article class="card evidence-card"><span class="card-label">첫 진입 순위 · 그룹 평균</span><div class="card-number red">4.2위</div><p>비장기 흥행 그룹은 평균 6.7위였습니다. 순위 숫자가 작을수록 초기 성과가 높습니다.</p></article>
+            <article class="card evidence-card"><span class="card-label">첫 주 시청시간 · 그룹 평균</span><div class="card-number red">3,552만</div><p>비장기 흥행 그룹의 1,619만 시간보다 약 2.2배 높았습니다.</p></article>
+            <article class="card evidence-card"><span class="card-label">초기 진입 국가 · 그룹 평균</span><div class="card-number red">39.2개국</div><p>비장기 흥행 그룹의 14.7개국보다 약 2.7배 넓었습니다.</p></article>
+          </div>
+          <div class="chart-grid">
+            <div class="chart"><div class="chart-title">long_hit과 non long_hit 그룹 평균</div><div class="legend"><span><i></i>long_hit</span><span><i class="gray"></i>non long_hit</span></div><div class="bar-chart"><div class="bar-row"><span>첫 주 시청시간</span><div class="bar-track"><div class="bar-fill" style="--w:88.8%"></div></div><b>3,552만</b></div><div class="bar-row"><span></span><div class="bar-track"><div class="bar-fill gray" style="--w:40.5%"></div></div><b>1,619만</b></div><div class="bar-row"><span>초기 진입 국가</span><div class="bar-track"><div class="bar-fill" style="--w:78.4%"></div></div><b>39.2</b></div><div class="bar-row"><span></span><div class="bar-track"><div class="bar-fill gray" style="--w:29.4%"></div></div><b>14.7</b></div></div></div>
+            <div class="takeaway"><strong>초기 깊이와 확산 범위</strong><p>첫 주 시청시간과 초기 국가 확산은 장기 흥행 여부를 조기에 가늠할 수 있는 관찰 지표로 볼 수 있습니다. 다만 세 지표 모두 상관관계이며 인과관계를 의미하지는 않습니다.</p></div>
+          </div>
+          <div class="insight-line"><b>왜 중요한가</b> · 이 세 지표는 콘텐츠 제작 여부를 되돌릴 수 없는 공개 이후 가장 먼저 관측되는 숫자입니다. Smilegate가 공개 첫 주의 실제 성과를 보고 마케팅·자막 확대 같은 후속 대응을 조정하려면, 바로 이 지표들을 조기 신호로 삼을 수 있습니다.</div>
+        </div>
+
+        <div class="subsection">
+          <h3 class="subsection-title">4. TMDB 결합: 콘텐츠 특성과 long_hit</h3>
+          <p>Netflix 성과 데이터만으로는 어떤 콘텐츠 특성이 장기 흥행과 함께 나타나는지 알 수 없습니다. TMDB의 장르·언어·제작국가 메타데이터를 제목·공개연도 기준으로 결합해 살펴봤습니다.</p>
+          <h4 class="subsection-title" style="font-size:1.02rem;margin-top:0">장르별 long_hit 비율 (표본 10개 이상)</h4>
+          <div class="table-wrap"><table><thead><tr><th>장르</th><th>long_hit 비율</th></tr></thead><tbody><tr><td>Mystery</td><td class="score">46.67%</td></tr><tr><td>Crime</td><td class="score">40.48%</td></tr><tr><td>Drama</td><td class="score">37.08%</td></tr><tr><td>Action &amp; Adventure</td><td>20.69%</td></tr><tr><td>Sci-Fi &amp; Fantasy</td><td>18.92%</td></tr><tr><td>Comedy</td><td>18.60%</td></tr><tr><td>Animation</td><td>15.38%</td></tr><tr><td>Kids</td><td>15.38%</td></tr><tr><td>Family</td><td>8.33%</td></tr><tr><td>Documentary</td><td>0.00%</td></tr><tr><td>Reality</td><td>0.00%</td></tr></tbody></table></div>
+          <p class="method-note">Mystery·Crime·Drama가 상대적으로 높고, Lost Ark의 장르에 가까운 Action &amp; Adventure와 Sci-Fi &amp; Fantasy, 그리고 형식이 같은 Animation은 중간대에 위치합니다. 한 작품이 여러 장르에 동시에 속할 수 있어 장르 하나만의 단독 효과로 해석하지 않습니다.</p>
+          <div class="stat-table-grid subsection">
+            <div><h4 class="subsection-title" style="font-size:1.02rem;margin-top:0">언어별 long_hit 비율</h4><div class="table-wrap"><table><thead><tr><th>원어</th><th>비율</th></tr></thead><tbody><tr><td>ko</td><td class="score">62.50%</td></tr><tr><td>es</td><td>34.62%</td></tr><tr><td>en</td><td>28.09%</td></tr><tr><td>ja</td><td>18.18%</td></tr><tr><td>fr</td><td>16.67%</td></tr><tr><td>pt</td><td>16.67%</td></tr></tbody></table></div></div>
+            <div><h4 class="subsection-title" style="font-size:1.02rem;margin-top:0">제작국가별 long_hit 비율</h4><div class="table-wrap"><table><thead><tr><th>제작국가</th><th>비율</th></tr></thead><tbody><tr><td>KR</td><td class="score">62.50%</td></tr><tr><td>FR</td><td>40.00%</td></tr><tr><td>US</td><td>33.33%</td></tr><tr><td>GB</td><td>33.33%</td></tr><tr><td>ES</td><td>26.67%</td></tr><tr><td>BR</td><td>20.00%</td></tr><tr><td>JP</td><td>18.18%</td></tr><tr><td>MX</td><td>12.50%</td></tr><tr><td>CA</td><td>0.00%</td></tr></tbody></table></div></div>
+          </div>
+          <div class="note">한국어·한국 제작 표본은 다른 언어·국가에 비해 크기가 작습니다. ko·KR의 62.50%라는 수치는 참고할 수 있는 관찰값이지만, 표본이 작아 일반적인 결론으로 확장해 해석하지 않았습니다.</div>
+          <div class="insight-line"><b>왜 중요한가</b> · Lost Ark는 Mystery·Crime 계열이 아니라 Action &amp; Adventure와 Sci-Fi &amp; Fantasy에 가까운 세계관을 가지고 있습니다. 이 장르들의 long_hit 비율이 상위권은 아니라는 점, 그리고 한국어·한국 제작 표본이 작아 함부로 유리하다고 볼 수 없다는 점 모두 콘텐츠 기획 단계에서 감안해야 할 참고 정보입니다.</div>
+        </div>
+
+        <div class="subsection">
+          <h3 class="subsection-title">5. TMDB 지표 해석 시 주의할 점</h3>
+          <div class="note"><b>현재 시점 누적값이라는 한계</b><br>TMDB의 popularity, vote_count, 현재까지의 시즌 수 등은 분석 시점을 기준으로 이미 누적된 값입니다. 즉 콘텐츠가 이미 흥행한 이후의 결과가 지표에 섞여 있을 수 있어, 이 지표들이 long_hit을 예측했다고 보기보다는 long_hit의 결과를 반영하고 있을 가능성이 큽니다. 그래서 이 지표들은 인과관계로 해석하지 않았고, 뒤에 나오는 분류 모델의 입력 변수에서도 제외했습니다.</div>
+        </div>
+
+        <div class="subsection card">
+          <div class="section-head"><div><h3>6. 2026년 최신 진입 코호트 검증</h3><p>2026 H1에 처음 Global Top 10에 진입한 content_key 191개를 2026년 8월 23일까지 추적했습니다.</p></div><div class="card-number red">25 / 191</div></div>
+          <p>191개 중 25개(13.09%)가 5주 이상 체류했습니다.</p>
+          <div class="grid-3">
+            <div><b>5주 이상 체류 후보</b><p>첫 주 평균 순위 3.12위 · 첫 주 평균 시청시간 약 4,303만 시간 · 첫 주 평균 시청 수 약 779만</p></div>
+            <div><b>비장기 체류 후보</b><p>첫 주 평균 순위 5.91위 · 첫 주 평균 시청시간 약 1,550만 시간 · 첫 주 평균 시청 수 약 359만</p></div>
+            <div><b>확인된 방향성</b><p>순위·시청시간·시청 수 모두 5주 이상 체류 후보 쪽이 더 높은 방향으로 일관되게 나타났습니다.</p></div>
+          </div>
+          <div class="insight-line"><b>비교 범위</b> · 과거 데이터의 long_hit과 2026 데이터의 5주 이상 체류는 정의와 관측 종료 시점이 달라 절대적인 비율(27.7% vs 13.09%)을 직접 비교하지 않았습니다. 강한 초기 성과를 보인 콘텐츠가 더 오래 유지되는 방향성이 반복된다는 점만 확인했습니다.</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section analysis-section" id="modeling">
+      <div class="container">
+        <div class="section-intro"><span class="kicker">분류 모델 검증</span><div class="rule"></div><h2>초기 성과만으로 long_hit을 구분할 수 있는가</h2><p>EDA에서 확인한 첫 진입 순위, 첫 주 시청시간, 초기 진입 국가라는 세 가지 초기 성과 지표가 실제로 long_hit 여부를 얼마나 구분해내는지 이진 분류 모델로 정량적으로 검증했습니다. 같은 작품의 시즌·파트가 train과 test에 동시에 포함되지 않도록 show_title 기준 GroupShuffleSplit을 적용했습니다.</p></div>
+        <div class="grid-3">
+          <article class="card"><h3>예측 대상</h3><div class="card-number">long_hit</div><p>5주 이상 Global Top 10 유지 여부</p></article>
+          <article class="card"><h3>입력 변수</h3><div class="card-number">3개</div><p>first_rank · log_first_week_hours · initial_country_reach</p></article>
+          <article class="card"><h3>데이터 누수 점검</h3><div class="card-number red">0건</div><p>train과 test의 show_title 중복</p></article>
+        </div>
+        <div class="subsection">
+          <h3 class="subsection-title">모델 성능 비교</h3>
+          <p>Dummy Classifier를 기준선으로 두고 Logistic Regression과 Random Forest를 비교했습니다. Test는 40개 분석 단위이며 그중 long_hit은 10개로, 클래스 불균형을 고려해 Accuracy보다 F1-score와 ROC-AUC를 주요 판단 지표로 사용했습니다.</p>
+          <div class="table-wrap"><table><thead><tr><th>모델</th><th>Accuracy</th><th>Precision</th><th>Recall</th><th>F1-score</th><th>ROC-AUC</th></tr></thead><tbody><tr><td>Dummy Classifier</td><td>0.750</td><td>0.000</td><td>0.000</td><td>0.000</td><td>0.500</td></tr><tr class="best"><td><b>Logistic Regression</b></td><td>0.825</td><td>0.636</td><td>0.700</td><td class="score">0.667</td><td class="score">0.793</td></tr><tr><td>Random Forest</td><td>0.725</td><td>0.462</td><td>0.600</td><td>0.522</td><td>0.757</td></tr></tbody></table></div>
+          <p class="method-note">표본이 159개로 크지 않은 상황에서 상대적으로 단순한 Logistic Regression이 더 유연한 Random Forest보다 F1-score와 ROC-AUC 모두에서 높게 나타났습니다. 이는 복잡한 모델을 쓸수록 성능이 항상 좋아진다고 보기 어렵다는 점을 보여주는 결과이며, 표본 규모가 작을 때는 모델 구조보다 신호 자체의 품질이 더 중요할 수 있음을 시사합니다.</p>
+        </div>
+        <div class="subsection grid-2">
+          <article class="card"><h3>Logistic Regression 표준화 계수</h3><div class="coefficient"><b>첫 주 시청시간</b><div class="coef-axis"><span class="coef-bar" style="--w:45%"></span></div><span class="score">+0.477</span></div><div class="coefficient"><b>첫 진입 순위</b><div class="coef-axis"><span class="coef-bar negative" style="--w:28%"></span></div><span class="accent">−0.295</span></div><div class="coefficient"><b>초기 진입 국가</b><div class="coef-axis"><span class="coef-bar" style="--w:21%"></span></div><span class="score">+0.225</span></div><p class="method-note">first_rank는 숫자가 작을수록 높은 순위이므로 음의 계수는 &ldquo;순위가 높을수록(숫자가 작을수록) long_hit 확률이 높다&rdquo;는 의미이며, 세 계수 모두 EDA에서 확인한 방향과 일치합니다.</p></article>
+          <article class="card"><h3>해석 범위와 모델의 한계</h3><ul class="muted"><li>159개 content_key의 제한된 표본과 단일 분할(split) 결과입니다.</li><li>TMDB 현재 인기도·투표·시즌 수는 시점 누수 가능성 때문에 입력 변수에서 제외했습니다.</li><li>계수는 변수의 방향을 보여줄 뿐 인과관계를 입증하지 않습니다.</li><li>이 모델은 성공을 보장하는 공식이 아니라, 출시 초기의 위험과 기회를 빠르게 구분해보는 탐색적 도구입니다.</li></ul></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section-alt">
+      <div class="container">
+        <div class="section-intro"><span class="kicker">분석 결론</span><div class="rule"></div><h2>초기 성과 신호는 장기 흥행과 같은 방향으로 나타났다</h2><p>EDA와 모델링 모두에서 첫 주 시청시간과 초기 진입 국가 수가 long_hit 여부와 같은 방향으로 연결되었습니다. 이 결과를 콘텐츠 기획과 출시 전략으로 옮기면 어떤 판단이 가능한지는 Business Insight 페이지에서 정리했습니다.</p></div>
+        <div class="hero-actions"><a class="btn btn-primary" href="pages/insight.html">Business Insight 보기</a><a class="btn" href="report/full_report.html">전체 보고서 보기</a></div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer"><div class="container footer-row"><span>Netflix Top 10 기반 Lost Ark 콘텐츠 전략 분석</span><span>비공식 데이터 분석 포트폴리오 · <span data-year></span></span></div></footer>
+</body>
+</html>
